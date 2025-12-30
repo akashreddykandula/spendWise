@@ -13,10 +13,18 @@ const app = express ();
 
 app.use (
   cors ({
-    origin: ['http://localhost:5173', 'https://spendwise.vercel.app'],
+    origin: [
+      'http://localhost:5173',
+      'https://spend-wise-opal.vercel.app', // ✅ CORRECT DOMAIN
+    ],
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
+
+// ✅ IMPORTANT: allow preflight
+app.options ('*', cors ());
 
 app.use (express.json ());
 
