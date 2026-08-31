@@ -45,7 +45,7 @@ const testimonials = [
 
 const stats = [
   { label: "Active Users", value: "10K+" },
-  { label: "Expenses Tracked", value: "₹50M+" },
+  { label: "Expenses Tracked", value: "$50M+" },
   { label: "Reports Sent", value: "25K+" },
   { label: "Cloud Receipts", value: "100K+" },
 ];

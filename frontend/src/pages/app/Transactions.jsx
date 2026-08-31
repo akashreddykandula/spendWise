@@ -250,7 +250,7 @@ const Transactions = () => {
             </p>
 
             <p className="text-xl sm:text-2xl font-black text-emerald-400 mt-1 truncate">
-              +₹{totalInflow.toLocaleString()}
+              +${totalInflow.toLocaleString()}
             </p>
           </div>
 
@@ -267,7 +267,7 @@ const Transactions = () => {
             </p>
 
             <p className="text-xl sm:text-2xl font-black text-rose-400 mt-1 truncate">
-              -₹{totalOutflow.toLocaleString()}
+              -${totalOutflow.toLocaleString()}
             </p>
           </div>
 
@@ -455,7 +455,7 @@ const Transactions = () => {
                     tx.type === "income" ? "text-emerald-400" : "text-rose-400"
                   }`}
                 >
-                  {tx.type === "income" ? "+" : "-"}₹
+                  {tx.type === "income" ? "+" : "-"}$
                   {Number(tx.amount).toLocaleString()}
                 </p>
 

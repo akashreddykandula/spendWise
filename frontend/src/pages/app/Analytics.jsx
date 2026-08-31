@@ -48,7 +48,7 @@ const CustomTooltip = ({ active, payload, label }) => {
           >
             <span className="capitalize">{entry.name}:</span>
             <span className="font-bold">
-              ₹{Number(entry.value).toLocaleString()}
+              ${Number(entry.value).toLocaleString()}
             </span>
           </p>
         ))}
@@ -120,11 +120,11 @@ const Analytics = () => {
   const alerts = [];
   Object.keys(catMap).forEach((cat) => {
     if (budgets[cat] && catMap[cat] > budgets[cat]) {
-      alerts.push(`⚠️ ${cat} exceeded by ₹${catMap[cat] - budgets[cat]}`);
+      alerts.push(`⚠️ ${cat} exceeded by $${catMap[cat] - budgets[cat]}`);
     }
   });
   if (monthlyBudget && expense > monthlyBudget) {
-    alerts.push(`🚨 Monthly budget exceeded by ₹${expense - monthlyBudget}`);
+    alerts.push(`🚨 Monthly budget exceeded by $${expense - monthlyBudget}`);
   }
 
   // 📉 Savings trend (last 6 months) (UNTOUCHED)
@@ -284,7 +284,7 @@ const Analytics = () => {
               Monthly Income
             </p>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-emerald-400">
-              ₹{income.toLocaleString()}
+              ${income.toLocaleString()}
             </h3>
           </div>
           <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
@@ -298,7 +298,7 @@ const Analytics = () => {
               Monthly Expense
             </p>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-rose-400">
-              ₹{expense.toLocaleString()}
+              ${expense.toLocaleString()}
             </h3>
           </div>
           <div className="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400">
@@ -312,7 +312,7 @@ const Analytics = () => {
               Net Savings
             </p>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-purple-400">
-              ₹{savings.toLocaleString()}
+              ${savings.toLocaleString()}
             </h3>
           </div>
           <div className="p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400">

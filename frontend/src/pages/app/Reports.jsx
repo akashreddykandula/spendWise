@@ -52,7 +52,7 @@ const CustomTooltip = ({ active, payload, label }) => {
           >
             <span className="capitalize">{entry.name}:</span>
             <span className="font-bold">
-              ₹{Number(entry.value).toLocaleString()}
+              ${Number(entry.value).toLocaleString()}
             </span>
           </p>
         ))}
@@ -270,21 +270,21 @@ const Reports = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
         <StatCard
           title="Income"
-          value={`₹${income.toLocaleString()}`}
+          value={`$${income.toLocaleString()}`}
           icon={TrendingUp}
           gradient="from-slate-900 via-emerald-950/30 to-slate-900"
           badgeText="Inflow"
         />
         <StatCard
           title="Expense"
-          value={`₹${expense.toLocaleString()}`}
+          value={`$${expense.toLocaleString()}`}
           icon={TrendingDown}
           gradient="from-slate-900 via-rose-950/30 to-slate-900"
           badgeText="Outflow"
         />
         <StatCard
           title="Savings"
-          value={`₹${savings.toLocaleString()}`}
+          value={`$${savings.toLocaleString()}`}
           icon={PiggyBank}
           gradient="from-slate-900 via-blue-950/30 to-slate-900"
           badgeText="Net Reserves"

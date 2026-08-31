@@ -284,7 +284,7 @@ const Settings = () => {
         <form onSubmit={updateBudget} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-              Monthly Limit (₹)
+              Monthly Limit ($)
             </label>
             <div className="relative">
               <Wallet className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />

@@ -79,7 +79,7 @@ const CustomTooltip = ({ active, payload, label }) => {
             className="font-medium flex items-center justify-between gap-4"
           >
             <span className="capitalize">{entry.name}:</span>
-            <span className="font-bold">₹{entry.value.toLocaleString()}</span>
+            <span className="font-bold">${entry.value.toLocaleString()}</span>
           </p>
         ))}
       </div>
@@ -205,7 +205,7 @@ const Dashboard = () => {
           expenseByCategory[tx.category] > budgets[tx.category]
         ) {
           newAlerts.push(
-            `⚠️ ${tx.category} budget exceeded by ₹${expenseByCategory[tx.category] - budgets[tx.category]}`,
+            `⚠️ ${tx.category} budget exceeded by $${expenseByCategory[tx.category] - budgets[tx.category]}`,
           );
         }
       }
@@ -213,7 +213,7 @@ const Dashboard = () => {
 
     if (monthlyBudget && totalExpense > monthlyBudget) {
       newAlerts.push(
-        `🚨 Monthly budget exceeded by ₹${totalExpense - monthlyBudget}`,
+        `🚨 Monthly budget exceeded by $${totalExpense - monthlyBudget}`,
       );
     }
 
@@ -275,7 +275,7 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
         <Card
           title="Total Balance"
-          value={`₹${balance.toLocaleString()}`}
+          value={`$${balance.toLocaleString()}`}
           icon={Wallet}
           gradient="from-slate-900 via-purple-950/40 to-slate-900"
           badgeText="Net Worth"
@@ -283,7 +283,7 @@ const Dashboard = () => {
         />
         <Card
           title="Total Income"
-          value={`₹${income.toLocaleString()}`}
+          value={`$${income.toLocaleString()}`}
           icon={TrendingUp}
           gradient="from-slate-900 via-emerald-950/30 to-slate-900"
           badgeText="Inflow"
@@ -291,7 +291,7 @@ const Dashboard = () => {
         />
         <Card
           title="Total Expense"
-          value={`₹${expense.toLocaleString()}`}
+          value={`$${expense.toLocaleString()}`}
           icon={TrendingDown}
           gradient="from-slate-900 via-rose-950/30 to-slate-900"
           badgeText="Outflow"
@@ -299,7 +299,7 @@ const Dashboard = () => {
         />
         <Card
           title="Savings"
-          value={`₹${savings.toLocaleString()}`}
+          value={`$${savings.toLocaleString()}`}
           icon={Gem}
           gradient="from-slate-900 via-blue-950/30 to-slate-900"
           badgeText="Retained"
@@ -421,7 +421,7 @@ const Dashboard = () => {
                           : "text-rose-400"
                       }`}
                     >
-                      {tx.type === "income" ? "+" : "-"}₹
+                      {tx.type === "income" ? "+" : "-"}$
                       {Math.abs(tx.amount).toLocaleString()}
                     </p>
                   </div>
@@ -501,7 +501,7 @@ const Dashboard = () => {
             Available Reserve
           </span>
           <span className="text-2xl font-black text-emerald-400">
-            ₹{savings.toLocaleString()}
+            ${savings.toLocaleString()}
           </span>
         </div>
       </div>
