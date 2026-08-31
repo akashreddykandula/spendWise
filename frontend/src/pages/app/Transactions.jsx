@@ -36,7 +36,23 @@ const defaultForm = {
 
 const categories = ["Food", "Shopping", "Bills", "Travel", "Salary", "Other"];
 const payments = ["Cash", "UPI", "Card"];
+// 📅 Format date as MM-DD-YYYY
 
+const formatDate = (date) => {
+  if (!date) return "";
+
+  const d = new Date(date);
+
+  if (isNaN(d.getTime())) return "";
+
+  const day = String(d.getDate()).padStart(2, "0");
+
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+
+  const year = d.getFullYear();
+
+  return `${month}-${day}-${year}`;
+};
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -426,7 +442,7 @@ const Transactions = () => {
                     <span className="inline-flex items-center gap-1 text-slate-400">
                       <Calendar className="w-3 h-3 shrink-0" />
 
-                      <span>{tx.date?.slice(0, 10)}</span>
+                      <span>{formatDate(tx.date)}</span>
                     </span>
                   </div>
 
