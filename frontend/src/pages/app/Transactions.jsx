@@ -44,7 +44,6 @@ const Transactions = () => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
 
-  // 🔗 Fetch transactions (LOGIC UNTOUCHED)
   const fetchTransactions = async () => {
     try {
       const res = await api.get("/transactions");
@@ -63,20 +62,17 @@ const Transactions = () => {
     fetchTransactions();
   }, []);
 
-  // 📝 Handle form change (LOGIC UNTOUCHED)
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setForm({ ...form, [name]: files ? files[0] : value });
   };
 
-  // ➕ Open add modal (LOGIC UNTOUCHED)
   const openAdd = () => {
     setEditing(null);
     setForm(defaultForm);
     setOpen(true);
   };
 
-  // ✏️ Open edit modal (LOGIC UNTOUCHED)
   const openEdit = (tx) => {
     setEditing(tx);
     setForm({
@@ -97,7 +93,6 @@ const Transactions = () => {
     setForm(defaultForm);
   };
 
-  // 💾 Save / Update (LOGIC UNTOUCHED)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -122,7 +117,6 @@ const Transactions = () => {
     }
   };
 
-  // ❌ Delete (LOGIC UNTOUCHED)
   const handleDelete = async (id) => {
     try {
       await api.delete(`/transactions/${id}`);
@@ -135,7 +129,6 @@ const Transactions = () => {
     }
   };
 
-  // Filter calculations (LOGIC UNTOUCHED)
   const filteredTransactions = transactions.filter((tx) => {
     const matchSearch = tx.title?.toLowerCase().includes(search.toLowerCase());
 
@@ -147,31 +140,31 @@ const Transactions = () => {
   });
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 text-slate-100 font-sans">
+    <div className="space-y-4 sm:space-y-6 max-w-7xl mx-auto p-3.5 sm:p-6 lg:p-8 pb-28 sm:pb-8 text-slate-100 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-slate-800 pb-4 sm:pb-5">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+          <h2 className="text-xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
             Transactions
           </h2>
-          <p className="text-slate-400 text-sm mt-1">
+          <p className="text-slate-400 text-xs sm:text-sm mt-0.5 sm:mt-1">
             Manage your daily cash inflows and expenses
           </p>
         </div>
         <button
           onClick={openAdd}
-          className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-5 py-3 rounded-2xl font-semibold shadow-lg shadow-purple-600/20 transition flex items-center justify-center gap-2 cursor-pointer self-start sm:self-auto"
+          className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl font-semibold shadow-lg shadow-purple-600/20 transition flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto text-sm"
         >
-          <Plus className="w-5 h-5" />
+          <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
           <span>Add Transaction</span>
         </button>
       </div>
 
       {/* 🔍 Search & Filters Bar */}
-      <div className="bg-slate-900/60 border border-slate-800/80 backdrop-blur-xl rounded-3xl p-4 sm:p-5 shadow-xl grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+      <div className="bg-slate-900/60 border border-slate-800/80 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-xl grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 items-end">
         {/* Search Input */}
         <div className="md:col-span-5">
-          <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+          <label className="block text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
             Search Description
           </label>
           <div className="relative">
@@ -181,14 +174,14 @@ const Transactions = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search transactions..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 text-white placeholder-slate-500 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
+              className="w-full pl-10 pr-4 py-2 sm:py-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 text-white placeholder-slate-500 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
             />
           </div>
         </div>
 
         {/* From Date */}
         <div className="md:col-span-3">
-          <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+          <label className="block text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
             From Date
           </label>
           <div className="relative">
@@ -196,14 +189,14 @@ const Transactions = () => {
               type="date"
               value={fromDate}
               onChange={(e) => setFromDate(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 text-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all [color-scheme:dark]"
+              className="w-full px-3.5 py-2 sm:py-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 text-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all [color-scheme:dark]"
             />
           </div>
         </div>
 
         {/* To Date */}
         <div className="md:col-span-3">
-          <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+          <label className="block text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
             To Date
           </label>
           <div className="relative">
@@ -211,7 +204,7 @@ const Transactions = () => {
               type="date"
               value={toDate}
               onChange={(e) => setToDate(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 text-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all [color-scheme:dark]"
+              className="w-full px-3.5 py-2 sm:py-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 text-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all [color-scheme:dark]"
             />
           </div>
         </div>
@@ -224,25 +217,27 @@ const Transactions = () => {
               setFromDate("");
               setToDate("");
             }}
-            className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700/80 border border-slate-700/60 text-slate-300 transition text-sm font-medium flex items-center justify-center gap-1"
+            className="w-full py-2 sm:py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700/80 border border-slate-700/60 text-slate-300 transition text-sm font-medium flex items-center justify-center gap-1.5"
             title="Clear filters"
           >
             <X className="w-4 h-4" />
-            <span className="md:hidden">Clear</span>
+            <span>Clear</span>
           </button>
         </div>
       </div>
 
       {/* List Content */}
       {loading ? (
-        <div className="py-20 flex flex-col items-center justify-center text-slate-400 gap-3">
+        <div className="py-16 flex flex-col items-center justify-center text-slate-400 gap-3">
           <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
           <p className="text-sm font-medium">Loading transactions...</p>
         </div>
       ) : filteredTransactions.length === 0 ? (
-        <div className="py-16 text-center border border-dashed border-slate-800 rounded-3xl bg-slate-900/30">
-          <Filter className="w-10 h-10 text-slate-600 mx-auto mb-3" />
-          <p className="text-slate-300 font-semibold">No transactions found</p>
+        <div className="py-12 sm:py-16 text-center border border-dashed border-slate-800 rounded-3xl bg-slate-900/30 px-4">
+          <Filter className="w-8 h-8 sm:w-10 sm:h-10 text-slate-600 mx-auto mb-3" />
+          <p className="text-slate-300 font-semibold text-sm sm:text-base">
+            No transactions found
+          </p>
           <p className="text-slate-500 text-xs mt-1">
             Try adjusting your filters or add a new record.
           </p>
@@ -252,28 +247,28 @@ const Transactions = () => {
           {filteredTransactions.map((tx) => (
             <div
               key={tx._id}
-              className="bg-slate-900/60 hover:bg-slate-800/60 border border-slate-800/80 backdrop-blur-xl rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row justify-between sm:items-center gap-4 transition-all shadow-md hover:shadow-lg"
+              className="bg-slate-900/60 hover:bg-slate-800/60 border border-slate-800/80 backdrop-blur-xl rounded-2xl p-3.5 sm:p-5 flex flex-col sm:flex-row justify-between sm:items-center gap-3 sm:gap-4 transition-all shadow-md"
             >
-              <div className="flex items-start gap-3.5 min-w-0">
+              <div className="flex items-start gap-3 min-w-0">
                 <div
-                  className={`p-3 rounded-2xl shrink-0 mt-0.5 ${
+                  className={`p-2.5 sm:p-3 rounded-2xl shrink-0 mt-0.5 ${
                     tx.type === "income"
                       ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                       : "bg-rose-500/10 text-rose-400 border border-rose-500/20"
                   }`}
                 >
                   {tx.type === "income" ? (
-                    <ArrowDownLeft className="w-5 h-5" />
+                    <ArrowDownLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                   ) : (
-                    <ArrowUpRight className="w-5 h-5" />
+                    <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
                   )}
                 </div>
                 <div className="min-w-0 space-y-1">
-                  <p className="font-bold text-white text-base truncate">
+                  <p className="font-bold text-white text-sm sm:text-base truncate">
                     {tx.title}
                   </p>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
-                    <span className="bg-slate-800/80 px-2.5 py-0.5 rounded-md border border-slate-700/50 font-medium">
+                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-400">
+                    <span className="bg-slate-800/80 px-2 py-0.5 rounded-md border border-slate-700/50 font-medium">
                       {tx.category}
                     </span>
                     <span>•</span>
@@ -282,7 +277,7 @@ const Transactions = () => {
                     <span>{tx.date?.slice(0, 10)}</span>
                   </div>
                   {tx.receipt && (
-                    <div className="pt-1">
+                    <div className="pt-0.5">
                       <a
                         href={tx.receipt}
                         target="_blank"
@@ -297,16 +292,16 @@ const Transactions = () => {
                 </div>
               </div>
 
-              <div className="flex sm:flex-col items-center sm:items-end justify-between border-t sm:border-t-0 border-slate-800/80 pt-3 sm:pt-0 shrink-0">
+              <div className="flex sm:flex-col items-center sm:items-end justify-between border-t sm:border-t-0 border-slate-800/80 pt-2.5 sm:pt-0 shrink-0">
                 <p
-                  className={`font-black text-lg sm:text-xl ${
+                  className={`font-black text-base sm:text-xl ${
                     tx.type === "income" ? "text-emerald-400" : "text-rose-400"
                   }`}
                 >
                   {tx.type === "income" ? "+" : "-"}₹
                   {Number(tx.amount).toLocaleString()}
                 </p>
-                <div className="flex items-center gap-2 mt-1">
+                <div className="flex items-center gap-1 sm:gap-2 sm:mt-1">
                   <button
                     onClick={() => openEdit(tx)}
                     className="p-1.5 rounded-lg text-slate-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"
@@ -328,7 +323,7 @@ const Transactions = () => {
         </div>
       )}
 
-      {/* ➕ / ✏️ Form Modal */}
+      {/* Form Modal */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -344,10 +339,10 @@ const Transactions = () => {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 50, opacity: 0, scale: 0.95 }}
               transition={{ type: "spring", stiffness: 260, damping: 25 }}
-              className="w-full sm:max-w-lg bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+              className="w-full sm:max-w-lg bg-slate-900 border border-slate-800 rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
             >
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
-                <h3 className="text-xl font-bold text-white">
+              <div className="flex items-center justify-between mb-5 pb-3.5 border-b border-slate-800">
+                <h3 className="text-lg sm:text-xl font-bold text-white">
                   {editing ? "Edit Transaction" : "Add Transaction"}
                 </h3>
                 <button
@@ -359,7 +354,6 @@ const Transactions = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Title */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                     Description
@@ -369,12 +363,11 @@ const Transactions = () => {
                     value={form.title || ""}
                     onChange={handleChange}
                     placeholder="e.g. Grocery shopping, Salary"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700/60 text-white placeholder-slate-500 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                    className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-slate-800/80 border border-slate-700/60 text-white placeholder-slate-500 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                     required
                   />
                 </div>
 
-                {/* Amount */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                     Amount (₹)
@@ -385,12 +378,11 @@ const Transactions = () => {
                     value={form.amount || ""}
                     onChange={handleChange}
                     placeholder="0.00"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700/60 text-white placeholder-slate-500 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                    className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-slate-800/80 border border-slate-700/60 text-white placeholder-slate-500 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                     required
                   />
                 </div>
 
-                {/* Type Toggle */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                     Transaction Type
@@ -420,7 +412,6 @@ const Transactions = () => {
                   </div>
                 </div>
 
-                {/* Category & Payment Mode Dropdowns */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
@@ -430,7 +421,7 @@ const Transactions = () => {
                       name="category"
                       value={form.category || "Food"}
                       onChange={handleChange}
-                      className="w-full px-3.5 py-3 rounded-xl bg-slate-800/80 border border-slate-700/60 text-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                      className="w-full px-3 py-2.5 sm:py-3 rounded-xl bg-slate-800/80 border border-slate-700/60 text-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                     >
                       {categories.map((c) => (
                         <option
@@ -452,7 +443,7 @@ const Transactions = () => {
                       name="paymentMode"
                       value={form.paymentMode || "Cash"}
                       onChange={handleChange}
-                      className="w-full px-3.5 py-3 rounded-xl bg-slate-800/80 border border-slate-700/60 text-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                      className="w-full px-3 py-2.5 sm:py-3 rounded-xl bg-slate-800/80 border border-slate-700/60 text-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                     >
                       {payments.map((p) => (
                         <option
@@ -467,7 +458,6 @@ const Transactions = () => {
                   </div>
                 </div>
 
-                {/* Date */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                     Date
@@ -477,12 +467,11 @@ const Transactions = () => {
                     type="date"
                     value={form.date || ""}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700/60 text-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all [color-scheme:dark]"
+                    className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-slate-800/80 border border-slate-700/60 text-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all [color-scheme:dark]"
                     required
                   />
                 </div>
 
-                {/* Receipt Upload */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                     Receipt (Optional)
@@ -504,18 +493,17 @@ const Transactions = () => {
                   </label>
                 </div>
 
-                {/* Form Buttons */}
-                <div className="flex gap-3 pt-4 border-t border-slate-800">
+                <div className="flex gap-3 pt-3 border-t border-slate-800">
                   <button
                     type="button"
                     onClick={closeModal}
-                    className="flex-1 py-3 rounded-xl bg-slate-800 hover:bg-slate-700/80 text-slate-300 font-semibold text-sm transition"
+                    className="flex-1 py-2.5 sm:py-3 rounded-xl bg-slate-800 hover:bg-slate-700/80 text-slate-300 font-semibold text-sm transition"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold text-sm shadow-lg shadow-purple-600/20 transition"
+                    className="flex-1 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold text-sm shadow-lg shadow-purple-600/20 transition"
                   >
                     {editing ? "Update Transaction" : "Save Transaction"}
                   </button>
@@ -526,7 +514,7 @@ const Transactions = () => {
         )}
       </AnimatePresence>
 
-      {/* ❗ Delete Confirmation Modal */}
+      {/* Delete Confirmation Modal */}
       <AnimatePresence>
         {confirmId && (
           <motion.div
@@ -541,15 +529,15 @@ const Transactions = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-slate-900 border border-slate-800 rounded-3xl p-6 w-full max-w-sm text-center shadow-2xl"
+              className="bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-6 w-full max-w-sm text-center shadow-2xl"
             >
-              <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-4">
-                <AlertTriangle className="w-6 h-6" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-3">
+                <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-1">
+              <h3 className="text-base sm:text-lg font-bold text-white mb-1">
                 Delete Transaction?
               </h3>
-              <p className="text-slate-400 text-xs mb-6">
+              <p className="text-slate-400 text-xs mb-5">
                 This action cannot be undone. Are you sure you want to proceed?
               </p>
 
