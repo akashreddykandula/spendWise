@@ -36,20 +36,13 @@ const defaultForm = {
 
 const categories = ["Food", "Shopping", "Bills", "Travel", "Salary", "Other"];
 const payments = ["Cash", "UPI", "Card"];
-// 📅 Format date as MM-DD-YYYY
 
+// 📅 Format date strictly as MM-DD-YYYY
 const formatDate = (date) => {
   if (!date) return "";
 
-  const d = new Date(date);
-
-  if (isNaN(d.getTime())) return "";
-
-  const day = String(d.getDate()).padStart(2, "0");
-
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-
-  const year = d.getFullYear();
+  const datePart = date.slice(0, 10);
+  const [year, month, day] = datePart.split("-");
 
   return `${month}-${day}-${year}`;
 };
@@ -174,11 +167,10 @@ const Transactions = () => {
   const filteredTransactions = transactions.filter((tx) => {
     const matchSearch = tx.title?.toLowerCase().includes(search.toLowerCase());
 
-    const txDate = new Date(tx.date);
+    const txDate = tx.date?.slice(0, 10);
 
-    const fromOk = fromDate ? txDate >= new Date(fromDate) : true;
-
-    const toOk = toDate ? txDate <= new Date(toDate) : true;
+    const fromOk = fromDate ? txDate >= fromDate : true;
+    const toOk = toDate ? txDate <= toDate : true;
 
     return matchSearch && fromOk && toOk;
   });
@@ -266,7 +258,7 @@ const Transactions = () => {
             </p>
 
             <p className="text-xl sm:text-2xl font-black text-emerald-400 mt-1 truncate">
-              +${totalInflow.toLocaleString()}
+              +₹{totalInflow.toLocaleString()}
             </p>
           </div>
 
@@ -283,7 +275,7 @@ const Transactions = () => {
             </p>
 
             <p className="text-xl sm:text-2xl font-black text-rose-400 mt-1 truncate">
-              -${totalOutflow.toLocaleString()}
+              -₹{totalOutflow.toLocaleString()}
             </p>
           </div>
 
@@ -471,7 +463,7 @@ const Transactions = () => {
                     tx.type === "income" ? "text-emerald-400" : "text-rose-400"
                   }`}
                 >
-                  {tx.type === "income" ? "+" : "-"}$
+                  {tx.type === "income" ? "+" : "-"}₹
                   {Number(tx.amount).toLocaleString()}
                 </p>
 
