@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const features = [
   {
@@ -50,42 +50,12 @@ const stats = [
   { label: "Cloud Receipts", value: "100K+" },
 ];
 
-// const fadeUp = {
-//   hidden: {opacity: 0, y: 40},
-//   visible: {opacity: 1, y: 0},
-// };
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
-const fadeLeft = {
-  hidden: { opacity: 0, x: -40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6 },
-  },
-};
-
-const fadeRight = {
-  hidden: { opacity: 0, x: 40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6 },
-  },
-};
-
-const stagger = {
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
   },
 };
 
@@ -110,87 +80,161 @@ const Landing = () => {
       {/* Background glow */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-purple-700/40 via-fuchsia-600/20 to-indigo-800/40 blur-3xl" />
 
-      {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur bg-black/30 border-b border-white/10">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
-          <div className="text-2xl font-bold tracking-wide">SpendWise</div>
+      {/* iPhone Glassmorphism Navbar */}
+      <header className="fixed top-4 left-0 right-0 z-50 px-4">
+        <nav
+          className="max-w-5xl mx-auto rounded-full px-5 py-3
+          bg-white/[0.07] backdrop-blur-2xl backdrop-saturate-150
+          border border-white/20
+          shadow-[0_8px_32px_rgba(0,0,0,0.45),inset_0_1px_0_0_rgba(255,255,255,0.25)]
+          transition-all duration-300"
+        >
+          <div className="flex items-center justify-between">
+            {/* Brand Logo */}
+            <Link
+              to="/"
+              className="flex items-center gap-2 text-xl font-bold tracking-tight"
+            >
+              <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-purple-400 to-pink-400 shadow-[0_0_10px_#e879f9]" />
+              <span>SpendWise</span>
+            </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8 text-sm">
-            <a href="#features" className="hover:text-purple-400 transition">
-              Features
-            </a>
-            <a
-              href="#testimonials"
-              className="hover:text-purple-400 transition"
+            {/* Desktop Menu (Laptop) */}
+            <div className="hidden md:flex items-center gap-1 text-sm font-medium">
+              <a
+                href="#features"
+                className="px-4 py-1.5 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-all"
+              >
+                Features
+              </a>
+              <a
+                href="#testimonials"
+                className="px-4 py-1.5 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-all"
+              >
+                Testimonials
+              </a>
+              <a
+                href="#about"
+                className="px-4 py-1.5 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-all"
+              >
+                About
+              </a>
+            </div>
+
+            {/* Desktop Action Buttons */}
+            <div className="hidden md:flex items-center gap-2.5 text-sm">
+              <Link
+                to="/login"
+                className="px-4 py-1.5 rounded-full font-medium text-white/90
+                bg-white/10 hover:bg-white/20 border border-white/15
+                transition-all active:scale-95"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="px-5 py-1.5 rounded-full font-semibold text-white
+                bg-gradient-to-r from-purple-500/90 to-pink-500/90
+                hover:from-purple-500 hover:to-pink-500
+                border border-white/25
+                shadow-[0_4px_15px_rgba(168,85,247,0.4),inset_0_1px_0_rgba(255,255,255,0.3)]
+                transition-all active:scale-95"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            {/* Mobile Hamburger Button (iOS Control Style) */}
+            <button
+              onClick={() => setOpen(!open)}
+              aria-label="Toggle Menu"
+              className="md:hidden w-9 h-9 rounded-full flex flex-col items-center justify-center gap-1.5
+              bg-white/10 border border-white/15 active:scale-90 transition"
             >
-              Testimonials
-            </a>
-            <a href="#about" className="hover:text-purple-400 transition">
-              About
-            </a>
-            <Link
-              to="/login"
-              className="bg-gradient-to-r from-purple-900 to-pink-400 shadow-lg shadow-purple-600/40 hover:shadow-pink-500/40 transition px-5 py-2 rounded-full font-semibold"
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              className="bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg shadow-purple-600/40 hover:shadow-pink-500/40 transition px-5 py-2 rounded-full font-semibold"
-            >
-              Get Started
-            </Link>
+              <span
+                className={`w-4 h-0.5 bg-white rounded-full transition-transform duration-300 ${
+                  open ? "rotate-45 translate-y-2" : ""
+                }`}
+              />
+              <span
+                className={`w-4 h-0.5 bg-white rounded-full transition-opacity duration-300 ${
+                  open ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`w-4 h-0.5 bg-white rounded-full transition-transform duration-300 ${
+                  open ? "-rotate-45 -translate-y-2" : ""
+                }`}
+              />
+            </button>
           </div>
+        </nav>
 
-          {/* Hamburger */}
-          <button
-            onClick={() => setOpen(!open)}
-            className="md:hidden flex flex-col space-y-1.5"
-          >
-            <span className="w-6 h-0.5 bg-white" />
-            <span className="w-6 h-0.5 bg-white" />
-            <span className="w-6 h-0.5 bg-white" />
-          </button>
-        </div>
+        {/* Mobile Floating Glass Sheet */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -12, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 0.96 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              className="md:hidden max-w-5xl mx-auto mt-3 rounded-3xl p-4
+              bg-white/[0.09] backdrop-blur-2xl backdrop-saturate-150
+              border border-white/20
+              shadow-[0_20px_40px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.25)]"
+            >
+              <div className="flex flex-col space-y-1 text-sm font-medium">
+                <a
+                  onClick={() => setOpen(false)}
+                  href="#features"
+                  className="px-4 py-3 rounded-2xl text-white/90 hover:bg-white/10 active:bg-white/15 transition"
+                >
+                  Features
+                </a>
+                <a
+                  onClick={() => setOpen(false)}
+                  href="#testimonials"
+                  className="px-4 py-3 rounded-2xl text-white/90 hover:bg-white/10 active:bg-white/15 transition"
+                >
+                  Testimonials
+                </a>
+                <a
+                  onClick={() => setOpen(false)}
+                  href="#about"
+                  className="px-4 py-3 rounded-2xl text-white/90 hover:bg-white/10 active:bg-white/15 transition"
+                >
+                  About
+                </a>
+              </div>
 
-        {/* Mobile Menu */}
-        {open && (
-          <div className="md:hidden bg-black/90 px-6 py-6 space-y-4 text-sm">
-            <a
-              onClick={() => setOpen(false)}
-              href="#features"
-              className="block"
-            >
-              Features
-            </a>
-            <a
-              onClick={() => setOpen(false)}
-              href="#testimonials"
-              className="block"
-            >
-              Testimonials
-            </a>
-            <a onClick={() => setOpen(false)} href="#about" className="block">
-              About
-            </a>
+              <div className="my-3 h-px bg-white/15" />
 
-            <Link onClick={() => setOpen(false)} to="/login" className="block">
-              Login
-            </Link>
-            <Link
-              onClick={() => setOpen(false)}
-              to="/register"
-              className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-2 rounded-full"
-            >
-              Get Started
-            </Link>
-          </div>
-        )}
-      </nav>
+              <div className="grid grid-cols-2 gap-2.5 text-sm font-semibold text-center">
+                <Link
+                  onClick={() => setOpen(false)}
+                  to="/login"
+                  className="py-2.5 rounded-2xl bg-white/10 border border-white/15 text-white active:scale-95 transition"
+                >
+                  Login
+                </Link>
+                <Link
+                  onClick={() => setOpen(false)}
+                  to="/register"
+                  className="py-2.5 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500
+                  border border-white/25 text-white
+                  shadow-[0_4px_15px_rgba(168,85,247,0.4),inset_0_1px_0_rgba(255,255,255,0.3)]
+                  active:scale-95 transition"
+                >
+                  Get Started
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
 
       {/* Hero */}
-      <section className="pt-32 pb-24 text-center relative">
+      <section className="pt-36 pb-24 text-center relative">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -248,6 +292,7 @@ const Landing = () => {
           />
         </motion.div>
       </section>
+
       <motion.section
         variants={fadeUp}
         initial="hidden"
